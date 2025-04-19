@@ -1,0 +1,79 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Keep the font import */
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+/* Theme variables: Shadcn/UI tokens for light/dark support */
+:root {
+  --background: #f8fafc;
+  --foreground: #09090b;
+  --primary: #2563eb;
+  --primary-foreground: #fff;
+  --secondary: #e0e7ef;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f1f5f9;
+  --muted-foreground: #636a80;
+  --accent: #dbeafe;
+  --accent-foreground: #2563eb;
+  --border: #e5e7eb;
+  --input: #f3f6fa;
+  --ring: #3b82f6;
+  --card: #fff;
+  --card-foreground: #1e293b;
+}
+.dark {
+  --background: #09090b;
+  --foreground: #f8fafc;
+  --primary: #60a5fa;
+  --primary-foreground: #09090b;
+  --secondary: #191b1e;
+  --secondary-foreground: #e0e7ef;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e3a8a;
+  --accent-foreground: #f8fafc;
+  --border: #27272a;
+  --input: #191b1e;
+  --ring: #60a5fa;
+  --card: #18181b;
+  --card-foreground: #e2e8f0;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@layer base {
+  body {
+    @apply font-sans text-neutral-text bg-neutral-white antialiased; /* Use theme colors/font, add smoothing */
+    /* Ensure margin: 0 is handled by Tailwind's preflight (included in @tailwind base) */
+  }
+  /* Add other global base styles here if needed */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-neutral-text-dark; /* Example: Darker text for headings */
+  }
+}
+
+/* Keep custom animations */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  display: flex; /* Keep necessary styles for the animation */
+  animation: marquee 80s linear infinite;
+}
