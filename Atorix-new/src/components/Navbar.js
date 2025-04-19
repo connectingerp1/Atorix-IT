@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useTheme } from "@/components/theme-provider";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -20,6 +21,7 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+    const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +43,7 @@ export default function Navbar() {
       <div className="container-custom">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className={`flex items-center space-x-2 ${ theme === 'dark' ? 'bg-gray-200 rounded-lg' : 'bg-transparent'}`}>
             <Image
               src="/AtorixIT.png"
               alt="Atorix IT Logo"

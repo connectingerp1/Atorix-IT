@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTheme } from "@/components/theme-provider";
 
 // Client logos data
 const clientLogos = [
@@ -20,6 +21,8 @@ const clientLogos = [
 ];
 
 export default function ClientsSection() {
+  const { theme } = useTheme();
+
   return (
     <section className="py-16 border-t border-b border-border/60 bg-muted/30">
       <div className="container-custom">
@@ -38,13 +41,13 @@ export default function ClientsSection() {
             <div className="animate-marquee inline-flex space-x-16 whitespace-nowrap">
               {clientLogos.map((client, index) => (
                 <div key={index} className="flex items-center justify-center px-4">
-                  <div className="flex items-center justify-center h-16 w-32 bg-white dark:bg-background rounded-md p-3 shadow-sm">
+                  <div className={`flex items-center justify-center h-16 w-32 rounded-md p-3 shadow-sm ${theme === 'dark' ? 'bg-gray-300' : 'bg-white'}`}>
                     <Image
                       src={client.logo}
                       alt={client.name}
                       width={100}
                       height={50}
-                      className="max-h-12 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                      className={`max-h-12 w-auto object-contain filter hover:grayscale-0 transition-all duration-300 ${theme === 'dark' ? 'grayscale-0 brightness-125 contrast-125' : 'grayscale'}`}
                     />
                   </div>
                 </div>

@@ -5,19 +5,22 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/components/theme-provider";
 
 export default function ServiceCard({ icon, title, description, delay = 0, href = "/services" }) {
+  const { theme } = useTheme();
+
   return (
     <Card className="group overflow-hidden border-border/40 transition-all duration-300 hover:border-primary/30 hover:shadow-md dark:bg-background/90">
       <CardHeader className="p-6">
         {icon && (
-          <div className="mb-4 rounded-lg bg-primary/10 p-3 w-fit transition-colors duration-300 group-hover:bg-primary/20">
+          <div className="mb-4 rounded-lg bg-primary/10 p-3 w-fit transition-colors duration-300 group-hover:bg-primary/20 image-container">
             <Image
               src={icon}
               alt={title}
               width={60}
               height={60}
-              className="h-7 w-7 md:h-12 md:w-12 object-contain"
+              className={`h-7 w-7 md:h-12 md:w-12 object-contain ${theme === 'dark' ? 'brightness-125 contrast-110' : ''}`}
             />
           </div>
         )}

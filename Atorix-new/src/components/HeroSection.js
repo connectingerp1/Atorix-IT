@@ -33,39 +33,231 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Layered background with gradient, grain and geometric SVG */}
+    <section className="relative overflow-hidden min-h-[90vh]">
+      {/* Modern Geometric Background */}
       <div className="absolute inset-0 z-0">
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-background" />
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-background to-primary/5" />
 
-        {/* Subtle SVG pattern */}
-        <div className="absolute inset-0 opacity-20">
+        {/* Modern geometric pattern */}
+        <div className="absolute inset-0">
           <svg
-            className="w-full h-full"
+            width="100%"
+            height="100%"
             xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="opacity-20"
           >
+            {/* Pattern definition */}
             <defs>
               <pattern
-                id="grid-pattern"
+                id="modern-grid"
+                x="0"
+                y="0"
+                width="20"
+                height="20"
+                patternUnits="userSpaceOnUse"
+                patternTransform="rotate(15)"
+              >
+                {/* Horizontal lines */}
+                <line
+                  x1="0"
+                  y1="10"
+                  x2="20"
+                  y2="10"
+                  stroke="currentColor"
+                  strokeWidth="0.2"
+                  className="text-primary"
+                />
+
+                {/* Vertical lines */}
+                <line
+                  x1="10"
+                  y1="0"
+                  x2="10"
+                  y2="20"
+                  stroke="currentColor"
+                  strokeWidth="0.2"
+                  className="text-primary"
+                />
+
+                {/* Intersection dots */}
+                <circle
+                  cx="10"
+                  cy="10"
+                  r="0.8"
+                  fill="currentColor"
+                  className="text-primary"
+                />
+              </pattern>
+
+              {/* Second pattern with different scale */}
+              <pattern
+                id="modern-grid-large"
+                x="0"
+                y="0"
                 width="40"
                 height="40"
                 patternUnits="userSpaceOnUse"
               >
+                {/* Horizontal lines */}
+                <line
+                  x1="0"
+                  y1="20"
+                  x2="40"
+                  y2="20"
+                  stroke="currentColor"
+                  strokeWidth="0.3"
+                  className="text-primary/50"
+                />
+
+                {/* Vertical lines */}
+                <line
+                  x1="20"
+                  y1="0"
+                  x2="20"
+                  y2="40"
+                  stroke="currentColor"
+                  strokeWidth="0.3"
+                  className="text-primary/50"
+                />
+
+                {/* Stylish plus at intersection */}
+                <path
+                  d="M 18,20 L 22,20 M 20,18 L 20,22"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                  className="text-primary/70"
+                />
+              </pattern>
+
+              {/* Decorative geometric elements */}
+              <pattern
+                id="decorative-elements"
+                x="0"
+                y="0"
+                width="100"
+                height="100"
+                patternUnits="userSpaceOnUse"
+              >
+                {/* Squares */}
                 <rect
-                  width="2"
-                  height="2"
-                  fill="currentColor"
-                  className="text-muted-foreground"
+                  x="10"
+                  y="10"
+                  width="10"
+                  height="10"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                  className="text-primary/30"
+                />
+
+                {/* Circles */}
+                <circle
+                  cx="80"
+                  cy="80"
+                  r="8"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                  className="text-primary/30"
+                />
+
+                {/* Triangles */}
+                <path
+                  d="M 50,20 L 60,35 L 40,35 Z"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                  className="text-primary/30"
                 />
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+
+            {/* Apply patterns */}
+            <rect width="100%" height="100%" fill="url(#modern-grid)" />
+            <rect width="100%" height="100%" fill="url(#modern-grid-large)" />
+            <rect width="100%" height="100%" fill="url(#decorative-elements)" />
           </svg>
         </div>
 
-        {/* Grain texture (already added) */}
+        {/* Subtle diagonal lines */}
+        <div className="absolute inset-0 opacity-10">
+          <svg
+            width="100%"
+            height="100%"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            <line
+              x1="0"
+              y1="0"
+              x2="100"
+              y2="100"
+              stroke="currentColor"
+              strokeWidth="0.2"
+              className="text-primary"
+            />
+            <line
+              x1="25"
+              y1="0"
+              x2="100"
+              y2="75"
+              stroke="currentColor"
+              strokeWidth="0.2"
+              className="text-primary"
+            />
+            <line
+              x1="50"
+              y1="0"
+              x2="100"
+              y2="50"
+              stroke="currentColor"
+              strokeWidth="0.2"
+              className="text-primary"
+            />
+            <line
+              x1="75"
+              y1="0"
+              x2="100"
+              y2="25"
+              stroke="currentColor"
+              strokeWidth="0.2"
+              className="text-primary"
+            />
+            <line
+              x1="0"
+              y1="25"
+              x2="75"
+              y2="100"
+              stroke="currentColor"
+              strokeWidth="0.2"
+              className="text-primary"
+            />
+            <line
+              x1="0"
+              y1="50"
+              x2="50"
+              y2="100"
+              stroke="currentColor"
+              strokeWidth="0.2"
+              className="text-primary"
+            />
+            <line
+              x1="0"
+              y1="75"
+              x2="25"
+              y2="100"
+              stroke="currentColor"
+              strokeWidth="0.2"
+              className="text-primary"
+            />
+          </svg>
+        </div>
+
+        {/* Noise/grain texture */}
         <div className="absolute inset-0 bg-grain opacity-30" />
       </div>
 

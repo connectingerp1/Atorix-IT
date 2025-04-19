@@ -10,29 +10,35 @@ import {
   MapPin,
   Phone,
   Mail,
-  ArrowUpRight
+  ArrowUpRight,
 } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 
 export default function Footer() {
+  const { theme } = useTheme();
+
   return (
     <footer className="bg-muted py-16 border-t">
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-block mb-6">
+            <Link
+              href="/"
+              className="inline-block mb-6 logo-container relative"
+            >
               <Image
                 src="/AtorixIT.png"
                 alt="Atorix IT Logo"
                 width={180}
                 height={50}
-                className="object-contain"
+                className={`object-contain ${ theme === 'dark' ? 'bg-gray-300 rounded-lg' : 'bg-transparent'}`}
               />
             </Link>
             <p className="text-muted-foreground mb-6">
               Atorix IT Solutions is the Best SAP S4 HANA Implementation Partner
-              in India with its head office in Pune. We provide robust, business process
-              solutions for successful clients.
+              in India with its head office in Pune. We provide robust, business
+              process solutions for successful clients.
             </p>
             <div className="flex space-x-4">
               <Link
@@ -175,20 +181,17 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPin className="mr-3 h-5 w-5 text-primary flex-shrink-0 mt-1" />
                 <span className="text-muted-foreground">
-                  Office #101, First Floor, Sai Square IT Park, Cochin, India, 682037
+                  Office #101, First Floor, Sai Square IT Park, Cochin, India,
+                  682037
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="mr-3 h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">
-                  +91 98765 43210
-                </span>
+                <span className="text-muted-foreground">+91 98765 43210</span>
               </li>
               <li className="flex items-center">
                 <Mail className="mr-3 h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">
-                  info@atorixit.com
-                </span>
+                <span className="text-muted-foreground">info@atorixit.com</span>
               </li>
             </ul>
           </div>
@@ -197,7 +200,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-border mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Atorix IT Solutions. All rights reserved.
+            © {new Date().getFullYear()} Atorix IT Solutions. All rights
+            reserved.
           </p>
           <div className="flex mt-4 sm:mt-0">
             <Link

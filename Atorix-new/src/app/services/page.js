@@ -157,7 +157,7 @@ export default function ServicesPage() {
             {servicesData.slice(0, 4).map((service) => (
               <Card key={service.id} className="border-border/50 hover:border-primary/30 hover:shadow-md transition-all duration-300">
                 <CardHeader className="p-6">
-                  <div className="rounded-lg bg-primary/10 p-1 w-fit mb-4">
+                  <div className="rounded-lg bg-gray-200 p-1 w-fit mb-4">
                     <Image
                       src={service.icon}
                       alt={service.title}

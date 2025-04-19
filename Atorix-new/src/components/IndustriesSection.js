@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/components/theme-provider";
 
 // Industry data
 const industriesData = [
@@ -23,16 +24,18 @@ const industriesData = [
 
 // Industry Card Component
 function IndustryCard({ name, icon }) {
+  const { theme } = useTheme();
+
   return (
     <Link href="/industries" className="group">
-      <div className="rounded-xl bg-card p-6 shadow-sm border border-border/40 transition-all duration-300 hover:border-primary/30 hover:shadow-md group-hover:bg-primary/5 flex flex-col items-center">
-        <div className="mb-4 w-16 h-16 flex items-center justify-center">
+      <div className="rounded-xl p-6 shadow-sm border border-border/40 transition-all duration-300 hover:border-primary/30 hover:shadow-md group-hover:bg-primary/5 flex flex-col items-center dark:hover:bg-primary/10 images-cards">
+        <div className="mb-4 w-16 h-16 flex items-center justify-center image-container white-bg-cards">
           <Image
             src={icon}
             alt={name}
             width={60}
             height={60}
-            className="w-12 h-12 object-contain opacity-80 group-hover:opacity-100 transition-all"
+            className={`w-12 h-12 object-contain opacity-80 group-hover:opacity-100 transition-all ${theme === 'dark' ? 'brightness-125 contrast-110' : ''}`}
           />
         </div>
         <h3 className="font-medium text-center group-hover:text-primary transition-colors">
@@ -47,7 +50,7 @@ export default function IndustriesSection() {
   return (
     <section className="py-16 md:py-24 relative overflow-hidden">
       {/* Background pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] dark:opacity-[0.03] pointer-events-none" />
 
       <div className="container-custom relative z-10">
         {/* Section header */}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTheme } from "@/components/theme-provider";
 
 // Industry data with details
 const industriesData = [
@@ -12,7 +13,8 @@ const industriesData = [
     id: "healthcare",
     name: "Healthcare",
     icon: "/images/industries/healthcare.png",
-    description: "Transform patient care and operational efficiency with SAP solutions tailored for healthcare providers and organizations.",
+    description:
+      "Transform patient care and operational efficiency with SAP solutions tailored for healthcare providers and organizations.",
     challenges: [
       "Complex regulatory compliance requirements",
       "Patient data management and security",
@@ -32,7 +34,8 @@ const industriesData = [
     id: "manufacturing",
     name: "Manufacturing",
     icon: "/images/industries/manufacture.png",
-    description: "Streamline production processes and optimize supply chains with comprehensive SAP solutions for manufacturers.",
+    description:
+      "Streamline production processes and optimize supply chains with comprehensive SAP solutions for manufacturers.",
     challenges: [
       "Complex supply chain management",
       "Production planning and scheduling",
@@ -52,7 +55,8 @@ const industriesData = [
     id: "finance",
     name: "Finance",
     icon: "/images/industries/finance.png",
-    description: "Enhance financial operations, reporting, and compliance with specialized SAP solutions for financial institutions.",
+    description:
+      "Enhance financial operations, reporting, and compliance with specialized SAP solutions for financial institutions.",
     challenges: [
       "Regulatory compliance and reporting",
       "Risk management",
@@ -72,7 +76,8 @@ const industriesData = [
     id: "retail",
     name: "Retail",
     icon: "/images/industries/retail.png",
-    description: "Transform customer experiences and streamline retail operations with SAP solutions designed for modern retailers.",
+    description:
+      "Transform customer experiences and streamline retail operations with SAP solutions designed for modern retailers.",
     challenges: [
       "Omnichannel customer experience",
       "Inventory and supply chain management",
@@ -92,7 +97,8 @@ const industriesData = [
     id: "energy",
     name: "Energy",
     icon: "/images/industries/Energy.png",
-    description: "Optimize operations and manage assets efficiently with SAP solutions tailored for energy companies.",
+    description:
+      "Optimize operations and manage assets efficiently with SAP solutions tailored for energy companies.",
     challenges: [
       "Asset management and maintenance",
       "Commodity trading and risk management",
@@ -112,7 +118,8 @@ const industriesData = [
     id: "automotive",
     name: "Automotive",
     icon: "/images/industries/automotive.png",
-    description: "Drive innovation and efficiency in automotive manufacturing and supply chains with specialized SAP solutions.",
+    description:
+      "Drive innovation and efficiency in automotive manufacturing and supply chains with specialized SAP solutions.",
     challenges: [
       "Complex global supply chains",
       "Just-in-time manufacturing",
@@ -132,10 +139,14 @@ const industriesData = [
 
 // Industry card component for overview section
 function IndustryCard({ name, icon, description }) {
+  const { theme } = useTheme();
+
   return (
     <Card className="group border-border/50 hover:border-primary/30 hover:shadow-md transition-all duration-300">
       <CardHeader className="p-6">
-        <div className="w-16 h-16 rounded-lg bg-primary/10 p-3 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
+        <div
+          className={`w-16 h-16 rounded-lgp-3 flex items-center justify-center mb-4 transition-colors ${theme === "dark" ? "bg-gray-200 rounded-lg" : "bg-transparent"}`}
+        >
           <Image
             src={icon}
             alt={name}
@@ -148,7 +159,10 @@ function IndustryCard({ name, icon, description }) {
       </CardHeader>
       <CardContent className="px-6 pb-6">
         <p className="text-muted-foreground mb-4">{description}</p>
-        <Link href={`#${name.toLowerCase()}`} className="text-primary font-medium flex items-center hover:underline">
+        <Link
+          href={`#${name.toLowerCase()}`}
+          className="text-primary font-medium flex items-center hover:underline"
+        >
           Learn more
           <ArrowRight className="h-4 w-4 ml-1" />
         </Link>
@@ -172,7 +186,9 @@ export default function IndustriesPage() {
             Industry-Specific SAP Solutions
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            We deliver tailored SAP solutions for diverse industries, addressing unique challenges and creating opportunities for innovation and growth.
+            We deliver tailored SAP solutions for diverse industries, addressing
+            unique challenges and creating opportunities for innovation and
+            growth.
           </p>
         </div>
       </section>
@@ -247,7 +263,7 @@ export default function IndustriesPage() {
 
                 <div className={index % 2 === 1 ? "order-1" : "order-2"}>
                   <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg border border-border/40">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/20"></div>
+                    <div className="absolute inset-0 bg-gray-200"></div>
                     <div className="absolute inset-0 flex items-center justify-center p-16">
                       <Image
                         src={industry.icon}
@@ -269,35 +285,75 @@ export default function IndustriesPage() {
       <section className="py-16 md:py-24">
         <div className="container-custom">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl font-bold mb-4">Additional Industries We Serve</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              Additional Industries We Serve
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Our SAP expertise extends to many other industries. Whatever your sector, we can help you implement, optimize, and support SAP solutions tailored to your specific needs.
+              Our SAP expertise extends to many other industries. Whatever your
+              sector, we can help you implement, optimize, and support SAP
+              solutions tailored to your specific needs.
             </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
             <div className="bg-card rounded-xl p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col items-center">
-              <Image src="/images/industries/education.png" alt="Education" width={60} height={60} className="mb-4" />
+              <Image
+                src="/images/industries/education.png"
+                alt="Education"
+                width={60}
+                height={60}
+                className="mb-4"
+              />
               <h3 className="font-medium text-center">Education</h3>
             </div>
             <div className="bg-card rounded-xl p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col items-center">
-              <Image src="/images/industries/pharmaceutical.png" alt="Pharmaceuticals" width={60} height={60} className="mb-4" />
+              <Image
+                src="/images/industries/pharmaceutical.png"
+                alt="Pharmaceuticals"
+                width={60}
+                height={60}
+                className="mb-4"
+              />
               <h3 className="font-medium text-center">Pharmaceuticals</h3>
             </div>
             <div className="bg-card rounded-xl p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col items-center">
-              <Image src="/images/industries/hospitality.png" alt="Hospitality" width={60} height={60} className="mb-4" />
+              <Image
+                src="/images/industries/hospitality.png"
+                alt="Hospitality"
+                width={60}
+                height={60}
+                className="mb-4"
+              />
               <h3 className="font-medium text-center">Hospitality</h3>
             </div>
             <div className="bg-card rounded-xl p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col items-center">
-              <Image src="/images/industries/agriculture.png" alt="Agriculture" width={60} height={60} className="mb-4" />
+              <Image
+                src="/images/industries/agriculture.png"
+                alt="Agriculture"
+                width={60}
+                height={60}
+                className="mb-4"
+              />
               <h3 className="font-medium text-center">Agriculture</h3>
             </div>
             <div className="bg-card rounded-xl p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col items-center">
-              <Image src="/images/industries/logistics.png" alt="Logistics" width={60} height={60} className="mb-4" />
+              <Image
+                src="/images/industries/logistics.png"
+                alt="Logistics"
+                width={60}
+                height={60}
+                className="mb-4"
+              />
               <h3 className="font-medium text-center">Logistics</h3>
             </div>
             <div className="bg-card rounded-xl p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col items-center">
-              <Image src="/images/industries/realstate.png" alt="Real Estate" width={60} height={60} className="mb-4" />
+              <Image
+                src="/images/industries/realstate.png"
+                alt="Real Estate"
+                width={60}
+                height={60}
+                className="mb-4"
+              />
               <h3 className="font-medium text-center">Real Estate</h3>
             </div>
           </div>
@@ -313,7 +369,8 @@ export default function IndustriesPage() {
                 Let's Discuss Your Industry-Specific Needs
               </h2>
               <p className="text-lg text-white/80 mb-0">
-                Contact our team to learn how our SAP solutions can address the unique challenges in your industry.
+                Contact our team to learn how our SAP solutions can address the
+                unique challenges in your industry.
               </p>
             </div>
             <div className="md:col-span-4 flex justify-start md:justify-end">
@@ -322,7 +379,10 @@ export default function IndustriesPage() {
                 size="lg"
                 className="bg-white text-primary hover:bg-white/90 w-full md:w-auto"
               >
-                <Link href="/contact" className="inline-flex items-center gap-2">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2"
+                >
                   Contact Us
                   <ArrowRight className="h-4 w-4" />
                 </Link>
