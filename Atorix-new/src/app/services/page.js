@@ -157,13 +157,13 @@ export default function ServicesPage() {
             {servicesData.slice(0, 4).map((service) => (
               <Card key={service.id} className="border-border/50 hover:border-primary/30 hover:shadow-md transition-all duration-300">
                 <CardHeader className="p-6">
-                  <div className="rounded-lg bg-primary/10 p-3 w-fit mb-4">
+                  <div className="rounded-lg bg-primary/10 p-1 w-fit mb-4">
                     <Image
                       src={service.icon}
                       alt={service.title}
-                      width={40}
-                      height={40}
-                      className="h-7 w-7 md:h-10 md:w-10 object-contain"
+                      width={60}
+                      height={60}
+                      className="h-7 w-7 md:h-16 md:w-16 object-contain"
                     />
                   </div>
                   <CardTitle className="text-xl tracking-tight">{service.title}</CardTitle>
@@ -227,8 +227,8 @@ export default function ServicesPage() {
                       <Image
                         src={service.icon}
                         alt={service.title}
-                        width={250}
-                        height={200}
+                        width={450}
+                        height={450}
                         className="object-contain max-w-full max-h-full"
                       />
                     </div>

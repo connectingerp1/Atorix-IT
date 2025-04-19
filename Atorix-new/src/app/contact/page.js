@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { MapPin, Mail, Phone, Clock, Send } from "lucide-react";
+import { MapPin, Mail, Phone, Clock, Send, AlertCircle } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -13,16 +13,65 @@ export default function ContactPage() {
     message: "",
   });
 
+  const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    // Phone validation (optional field)
+    if (formData.phone && !/^[+\d\s\-()]{7,20}$/.test(formData.phone)) {
+      newErrors.phone = "Please enter a valid phone number";
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      // Scroll to the first error
+      const firstErrorField = document.querySelector("[aria-invalid='true']");
+      if (firstErrorField) {
+        firstErrorField.focus();
+      }
+      return;
+    }
+
     setSubmitting(true);
 
     // Simulate form submission
@@ -41,6 +90,9 @@ export default function ContactPage() {
       setTimeout(() => {
         setSubmitted(false);
       }, 5000);
+
+      // Scroll to top to show success message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 1500);
   };
 
@@ -140,9 +192,14 @@ export default function ContactPage() {
                 <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
 
                 {submitted ? (
-                  <div className="bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 p-4 rounded-lg mb-6">
-                    <p className="font-medium">Thank you for your message!</p>
-                    <p className="text-sm">We have received your inquiry and will get back to you shortly.</p>
+                  <div className="bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 p-6 rounded-lg mb-6 flex items-start">
+                    <div className="rounded-full bg-green-100 dark:bg-green-800 p-1 mr-3 flex-shrink-0">
+                      <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-300" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Thank you for your message!</p>
+                      <p className="text-sm mt-1">We have received your inquiry and will get back to you shortly.</p>
+                    </div>
                   </div>
                 ) : null}
 
@@ -158,10 +215,18 @@ export default function ContactPage() {
                         type="text"
                         value={formData.name}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 rounded-md border border-input bg-background focus:border-primary focus:ring-1 focus:ring-primary"
+                        aria-invalid={errors.name ? 'true' : 'false'}
+                        className={`w-full px-4 py-2 rounded-md border ${
+                          errors.name ? 'border-red-500 dark:border-red-400' : 'border-input'
+                        } bg-background focus:border-primary focus:ring-1 focus:ring-primary`}
                         placeholder="Enter your full name"
                       />
+                      {errors.name && (
+                        <p className="text-red-500 text-sm flex items-center mt-1">
+                          <AlertCircle className="h-3.5 w-3.5 mr-1" />
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -174,10 +239,18 @@ export default function ContactPage() {
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 rounded-md border border-input bg-background focus:border-primary focus:ring-1 focus:ring-primary"
+                        aria-invalid={errors.email ? 'true' : 'false'}
+                        className={`w-full px-4 py-2 rounded-md border ${
+                          errors.email ? 'border-red-500 dark:border-red-400' : 'border-input'
+                        } bg-background focus:border-primary focus:ring-1 focus:ring-primary`}
                         placeholder="Enter your email address"
                       />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm flex items-center mt-1">
+                          <AlertCircle className="h-3.5 w-3.5 mr-1" />
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -192,9 +265,18 @@ export default function ContactPage() {
                         type="tel"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 rounded-md border border-input bg-background focus:border-primary focus:ring-1 focus:ring-primary"
+                        aria-invalid={errors.phone ? 'true' : 'false'}
+                        className={`w-full px-4 py-2 rounded-md border ${
+                          errors.phone ? 'border-red-500 dark:border-red-400' : 'border-input'
+                        } bg-background focus:border-primary focus:ring-1 focus:ring-primary`}
                         placeholder="Enter your phone number"
                       />
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm flex items-center mt-1">
+                          <AlertCircle className="h-3.5 w-3.5 mr-1" />
+                          {errors.phone}
+                        </p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -223,10 +305,18 @@ export default function ContactPage() {
                       rows="5"
                       value={formData.message}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 rounded-md border border-input bg-background focus:border-primary focus:ring-1 focus:ring-primary resize-none"
+                      aria-invalid={errors.message ? 'true' : 'false'}
+                      className={`w-full px-4 py-2 rounded-md border ${
+                        errors.message ? 'border-red-500 dark:border-red-400' : 'border-input'
+                      } bg-background focus:border-primary focus:ring-1 focus:ring-primary resize-none`}
                       placeholder="Tell us about your project or inquiry"
                     ></textarea>
+                    {errors.message && (
+                      <p className="text-red-500 text-sm flex items-center mt-1">
+                        <AlertCircle className="h-3.5 w-3.5 mr-1" />
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -237,7 +327,13 @@ export default function ContactPage() {
                       disabled={submitting}
                     >
                       {submitting ? (
-                        <>Processing...</>
+                        <div className="flex items-center gap-2">
+                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Processing...
+                        </div>
                       ) : (
                         <>
                           Send Message
@@ -287,28 +383,28 @@ export default function ContactPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <div className="bg-card rounded-lg p-6 border border-border/40">
+            <div className="bg-card rounded-lg p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300">
               <h3 className="text-lg font-semibold mb-2">What SAP services do you offer?</h3>
               <p className="text-muted-foreground">
                 We offer a full range of SAP services including implementation, support, integration, migration, upgrade, and specialized consulting for specific industries.
               </p>
             </div>
 
-            <div className="bg-card rounded-lg p-6 border border-border/40">
+            <div className="bg-card rounded-lg p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300">
               <h3 className="text-lg font-semibold mb-2">How long does an SAP implementation take?</h3>
               <p className="text-muted-foreground">
                 Implementation timelines vary based on project scope, but typically range from 3-12 months. We use accelerated methodologies to minimize disruption.
               </p>
             </div>
 
-            <div className="bg-card rounded-lg p-6 border border-border/40">
+            <div className="bg-card rounded-lg p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300">
               <h3 className="text-lg font-semibold mb-2">Do you provide post-implementation support?</h3>
               <p className="text-muted-foreground">
                 Yes, we offer comprehensive post-implementation support services to ensure your SAP systems continue to run smoothly and efficiently.
               </p>
             </div>
 
-            <div className="bg-card rounded-lg p-6 border border-border/40">
+            <div className="bg-card rounded-lg p-6 border border-border/40 hover:border-primary/30 hover:shadow-md transition-all duration-300">
               <h3 className="text-lg font-semibold mb-2">What industries do you specialize in?</h3>
               <p className="text-muted-foreground">
                 We have expertise across multiple industries including manufacturing, healthcare, retail, finance, energy, and more. Our solutions are tailored to specific industry needs.

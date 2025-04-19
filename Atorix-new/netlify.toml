@@ -12,10 +12,5 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[[images]]
-  remote_images = [".*"]
+# Remove the redirect to index.html which doesn't work with Next.js
+# and let the Next.js plugin handle the routing

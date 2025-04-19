@@ -54,7 +54,7 @@ export default function CtaSection() {
                 variant="outline"
                 size="lg"
                 asChild
-                className="border-white text-white hover:bg-white/10"
+                className="border-white text-blue-500 hover:bg-white/10"
               >
                 <Link href="/get-demo" className="flex items-center">
                   <PhoneCall className="mr-2 h-4 w-4" />

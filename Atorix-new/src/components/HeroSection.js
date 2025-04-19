@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import LogoSphere from "@/components/ui/LogoSphere";
 
 export default function HeroSection() {
   // Add scroll animation for the "Scroll Down" button
@@ -33,8 +34,38 @@ export default function HeroSection() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-background z-0">
+      {/* Layered background with gradient, grain and geometric SVG */}
+      <div className="absolute inset-0 z-0">
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-background" />
+
+        {/* Subtle SVG pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <svg
+            className="w-full h-full"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            <defs>
+              <pattern
+                id="grid-pattern"
+                width="40"
+                height="40"
+                patternUnits="userSpaceOnUse"
+              >
+                <rect
+                  width="2"
+                  height="2"
+                  fill="currentColor"
+                  className="text-muted-foreground"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+          </svg>
+        </div>
+
+        {/* Grain texture (already added) */}
         <div className="absolute inset-0 bg-grain opacity-30" />
       </div>
 
@@ -52,18 +83,23 @@ export default function HeroSection() {
               <span className="text-foreground">
                 Transform Your Business with{" "}
               </span>
-              <span className="bg-clip-text text-transparent bg-gradient-hero">
+              <span className="text-blue-600 dark:text-blue-400">
                 Atorix IT Solutions
               </span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8">
-              Atorix IT Solutions delivers robust, business process solutions with unrivaled
-              experience in SAP implementation, support, and integration services.
+              Atorix IT Solutions delivers robust, business process solutions
+              with unrivaled experience in SAP implementation, support, and
+              integration services.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <Button size="lg" asChild className="px-8 gap-2 bg-gradient-hero hover:shadow-lg">
+              <Button
+                size="lg"
+                asChild
+                className="px-8 gap-2 bg-gradient-hero hover:shadow-lg"
+              >
                 <Link href="/contact">
                   Get Started
                   <ArrowRight className="h-4 w-4" />
@@ -80,7 +116,7 @@ export default function HeroSection() {
             </div>
 
             <div className="mt-12 flex items-center text-sm text-muted-foreground">
-              <div className="flex -space-x-2 mr-3">
+              <div className="flex -space-x-0 mr-2">
                 <div className="h-8 w-8 rounded-full bg-primary-foreground border border-border flex items-center justify-center">
                   <span className="text-xs font-medium">100+</span>
                 </div>
@@ -92,24 +128,35 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column - Image */}
+          {/* Right Column - Logo with 3D Rotation */}
           <div className="relative">
             <div className="relative h-[400px] md:h-[500px] w-full flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl transform rotate-3 scale-95"></div>
-              <div className="absolute inset-0 bg-white dark:bg-slate-900 rounded-2xl shadow-xl"></div>
-              <Image
-                src="/images/web-dev.svg"
-                alt="SAP Implementation"
-                width={500}
-                height={400}
-                className="relative z-10 animate-float object-contain"
-                priority
-              />
+              {/* Decorative background elements for logo */}
+
+              {/* Circular glowing background for logo */}
+              <div className="absolute w-[300px] h-[300px] md:w-[350px] md:h-[350px] rounded-full bg-blue-500/10 dark:bg-blue-500/20 blur-xl"></div>
+              <div
+                className="absolute w-[280px] h-[280px] md:w-[470px] md:h-[470px] rounded-full bg-gradient-to-br from-blue-400/20 to-blue-600/20 animate-pulse"
+                style={{ animationDuration: "4s" }}
+              ></div>
+
+              {/* Logo with 3D rotation */}
+              <div className="relative z-10 animate-rotate-3d-object">
+                <div className="w-[250px] h-[250px] md:w-[600px] md:h-[600px] relative">
+                  <LogoSphere />
+                </div>
+              </div>
             </div>
 
             {/* Floating decorative elements */}
-            <div className="absolute top-20 -left-6 h-24 w-24 rounded-full bg-blue-500/10 animate-float" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute bottom-20 -right-6 h-32 w-32 rounded-full bg-blue-600/10 animate-float" style={{ animationDelay: '2s' }}></div>
+            <div
+              className="absolute top-20 left-14 h-24 w-24 rounded-full bg-blue-500/10 animate-float"
+              style={{ animationDelay: "1s" }}
+            ></div>
+            <div
+              className="absolute bottom-24 right-16 h-32 w-32 rounded-full bg-blue-600/10 animate-float"
+              style={{ animationDelay: "2s" }}
+            ></div>
           </div>
         </div>
 

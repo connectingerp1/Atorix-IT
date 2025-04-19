@@ -15,9 +15,9 @@ export default function ServiceCard({ icon, title, description, delay = 0, href 
             <Image
               src={icon}
               alt={title}
-              width={40}
-              height={40}
-              className="h-7 w-7 md:h-10 md:w-10 object-contain"
+              width={60}
+              height={60}
+              className="h-7 w-7 md:h-12 md:w-12 object-contain"
             />
           </div>
         )}
